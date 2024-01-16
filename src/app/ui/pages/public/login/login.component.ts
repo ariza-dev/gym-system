@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoginUsecase } from '../../../../domain/auth/usecases/login.usecase';
 
 @Component({
   selector: 'app-login',
@@ -13,10 +14,17 @@ export class LoginComponent {
     password: ['', [Validators.required, Validators.minLength(8)]],
   });
 
-  constructor(private router: Router, private fb: FormBuilder) {}
+  constructor(
+    private router: Router,
+    private fb: FormBuilder,
+    private _loginUsecase: LoginUsecase
+  ) { }
 
   onSave(): void {
-    console.log(this.myForm.value);
+    const { email, password } = this.myForm.value;
+    this._loginUsecase.login({ email, password }).subscribe({
+      next: (res) => console.log(res)
+    })
   }
 
   irARegister() {
