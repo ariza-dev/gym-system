@@ -4,11 +4,12 @@ import { PublicModule } from './pages/public/public.module';
 import { routesUi } from './ui.routes';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { HttpInterceptorService } from '../infrastructure/shared/services/http-interceptor.service';
+import { DesigModule } from './design-system/design-system.module';
 @NgModule({
   imports: [
     RouterModule.forRoot(routesUi),
     PublicModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }
